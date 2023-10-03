@@ -1,0 +1,51 @@
+import 'package:dartz/dartz.dart';
+import 'package:doctor_console/core/errors/failures.dart';
+import 'package:doctor_console/core/network/network_info.dart';
+import 'package:doctor_console/features/tables/domain/entities/receipt.dart';
+import 'package:doctor_console/features/tables/domain/repositories/tables_repository.dart';
+import 'package:doctor_console/features/tables/domain/usecases/get_tables.dart';
+import 'package:doctor_console/features/tables/domain/usecases/mark_as_renewed.dart';
+
+import '../datasources/tables_remote_data_source.dart';
+
+class TablesRepositoryImpl implements TablesRepository {
+  final NetworkInfo networkInfo;
+  final TablesRemoteDataSource remoteDataSource;
+
+  TablesRepositoryImpl(
+      {required this.networkInfo, required this.remoteDataSource});
+
+  @override
+  Future<Either<Failure, List<Receipt>>> getTables(
+      GetTablesParams params) async {
+    if (await networkInfo.isConnected) {
+      try {
+        List<Receipt> receipts = await remoteDataSource.getTables(params);
+        return Right(receipts);
+      } on Exception catch (e) {
+        return Left(
+          AppwriteFailure(message: e.toString()),
+        );
+      }
+    } else {
+      return Left(DeviceOfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> markAsRenewed(
+      MarkAsRenewedParams params) async {
+    if (await networkInfo.isConnected) {
+      try {
+       await remoteDataSource.markAsRenewed(params);
+        return const Right(unit);
+      } on Exception catch (e) {
+        return Left(
+          AppwriteFailure(message: e.toString()),
+        );
+      }
+    } else {
+      return Left(DeviceOfflineFailure());
+    }
+  }
+}
