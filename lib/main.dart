@@ -33,6 +33,7 @@ class MainApp extends StatelessWidget {
             scheme: FlexScheme.deepBlue,
             useMaterial3: true,
             visualDensity: FlexColorScheme.comfortablePlatformDensity,
+            
           ),
           builder: (context, child) => Directionality(
               textDirection: TextDirection.rtl,

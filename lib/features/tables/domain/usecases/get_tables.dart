@@ -22,12 +22,14 @@ class GetTablesParams extends Equatable {
   final String? phoneReceived;
   final bool? isUsed, isRenewed;
   final DateTime day;
+  final Year year;
 
   const GetTablesParams(
       {required this.paymentMethod,
       this.phoneReceived,
       this.isUsed = true,
       this.isRenewed = false,
+      required this.year,
       required this.day});
   @override
   List<Object> get props => [

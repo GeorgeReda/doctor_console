@@ -30,6 +30,8 @@ class TablesRemoteDataSourceImpl implements TablesRemoteDataSource {
               Query.equal('isRenewed', params.isRenewed),
               Query.startsWith('transactionDate',
                   params.day.toIso8601String().split('T')[0]),
+              if (params.year != Year.none)
+                Query.equal('year', params.year.name),
             ]);
 
         return docs.documents

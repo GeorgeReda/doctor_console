@@ -70,6 +70,22 @@ class TablesScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             const FiltersRow(),
+            BlocBuilder<TablesCubit, TablesState>(
+              builder: (context, state) {
+                if (state is TablesSuccess) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'عدد الفواتير : ${state.receipts.length}',
+                      style: context.titleMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
             const SizedBox(height: 20),
             const ReceiptsTable(),
           ],

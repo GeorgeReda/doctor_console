@@ -1,4 +1,5 @@
 import 'package:appwrite/models.dart';
+import 'package:doctor_console/core/constants/enums.dart';
 
 import '../../domain/entities/vf_cash_receipt.dart';
 
@@ -8,6 +9,8 @@ class VFCashReceiptModel extends VFCashReceipt {
       required super.name,
       required super.code,
       required super.phone,
+      required super.year,
+      required super.monthsNeeded,
       required super.transactionId,
       required super.phoneSent,
       required super.phoneRecieved,
@@ -23,6 +26,11 @@ class VFCashReceiptModel extends VFCashReceipt {
       name: doc.data['name'] ?? 'Unknown',
       code: doc.data['code'] ?? '---',
       phone: doc.data['phone'] ?? '---',
+      year: Year.values
+          .firstWhere((element) => element.name == doc.data['year']),
+      monthsNeeded: Months.values
+          .where((element) => doc.data['monthsNeeded'].contains(element.name))
+          .toList(),
       transactionId: doc.data['transactionId'],
       phoneSent: doc.data['phoneSent'],
       phoneRecieved: doc.data['phoneRecieved'],
