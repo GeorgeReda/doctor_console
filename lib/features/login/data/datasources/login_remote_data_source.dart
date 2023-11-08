@@ -1,26 +1,28 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class LoginRemoteDataSource {
   Future<Unit> deleteOldSession();
-  Future<Unit> login(String email, String password);
+  Future<User> login(String email, String password);
 }
 
 class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
-  final Client client;
   final Account account;
 
-  LoginRemoteDataSourceImpl({required this.client, required this.account});
+  LoginRemoteDataSourceImpl({required this.account});
 
   @override
-  Future<Unit> login(String email, String password) async {
+  Future<User> login(String email, String password) async {
     try {
       await account.createEmailSession(
         email: email,
         password: password,
       );
 
-      return unit;
+      final User user = await account.get();
+
+      return user;
     } on AppwriteException {
       rethrow;
     }

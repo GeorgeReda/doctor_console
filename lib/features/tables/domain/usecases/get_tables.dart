@@ -18,22 +18,12 @@ class GetTables extends UseCase<List<Receipt>, GetTablesParams> {
 }
 
 class GetTablesParams extends Equatable {
-  final PaymentMethod paymentMethod;
-  final String? phoneReceived;
-  final bool? isUsed, isRenewed;
+  final bool? isRenewed;
   final DateTime day;
   final Year year;
 
   const GetTablesParams(
-      {required this.paymentMethod,
-      this.phoneReceived,
-      this.isUsed = true,
-      this.isRenewed = false,
-      required this.year,
-      required this.day});
+      {this.isRenewed, required this.year, required this.day});
   @override
-  List<Object> get props => [
-        paymentMethod,
-        day,
-      ];
+  List<Object> get props => [day, year];
 }

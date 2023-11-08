@@ -1,6 +1,4 @@
-enum PaymentMethod { vodafoneCash, fawry }
-
-enum Months { first, second, third }
+enum Months { first, second, third, fourth }
 
 extension MonthsExt on Months {
   String get desc {
@@ -11,6 +9,8 @@ extension MonthsExt on Months {
         return 'الشهر الثاني';
       case Months.third:
         return 'الشهر الثالث';
+      case Months.fourth:
+        return 'الشهر الرابع';
       default:
         return '';
     }
@@ -28,6 +28,25 @@ extension YearExt on Year {
         return 'الصف الثالث الثانوي';
       default:
         return 'غير محدد';
+    }
+  }
+}
+
+enum Books { first, second, third, fourth }
+
+extension BooksExt on Books {
+  String get desc {
+    switch (this) {
+      case Books.first:
+        return 'مذكرة الفصل الأول';
+      case Books.second:
+        return 'مذكرة الفصلين الثاني و الثالث';
+      case Books.third:
+        return 'مذكرة الفصل الرابع و الحديثة';
+      case Books.fourth:
+        return 'مذكرة المراجعة النهائية';
+      default:
+        return '';
     }
   }
 }

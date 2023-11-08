@@ -1,7 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:doctor_console/features/login/presentation/cubit/login_cubit.dart';
 import 'package:doctor_console/features/login/presentation/pages/login_screen.dart';
-import 'package:doctor_console/features/tables/presentation/cubits/mark_cubit.dart';
+import 'package:doctor_console/features/tables/presentation/cubits/receipt_cubit.dart';
 import 'package:doctor_console/features/tables/presentation/cubits/tables_cubit.dart';
 import 'package:doctor_console/injection_container.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -26,14 +26,13 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => GetIt.I<LoginCubit>()),
         BlocProvider(create: (context) => GetIt.I<TablesCubit>()),
-        BlocProvider(create: (context) => GetIt.I<MarkCubit>()),
+        BlocProvider(create: (context) => GetIt.I<ReceiptCubit>()),
       ],
       child: MaterialApp(
           theme: FlexThemeData.light(
             scheme: FlexScheme.deepBlue,
             useMaterial3: true,
             visualDensity: FlexColorScheme.comfortablePlatformDensity,
-            
           ),
           builder: (context, child) => Directionality(
               textDirection: TextDirection.rtl,

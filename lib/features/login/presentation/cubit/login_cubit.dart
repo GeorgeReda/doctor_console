@@ -1,3 +1,4 @@
+import 'package:appwrite/models.dart';
 import 'package:doctor_console/core/errors/failures.dart';
 import 'package:doctor_console/features/login/domain/usecases/login.dart';
 import 'package:equatable/equatable.dart';
@@ -17,7 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
     result.fold(
       (failure) => emit(LoginError(
           failure is AppwriteFailure ? failure.message : failure.toString())),
-      (success) => emit(LoginSuccess()),
+      (user) => emit(LoginSuccess(user: user)),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:doctor_console/core/errors/failures.dart';
@@ -14,7 +15,7 @@ class LoginRepositoryImpl implements LoginRepository {
       {required this.remoteDataSource, required this.networkInfo});
 
   @override
-  Future<Either<Failure, Unit>> login(String username, String password) async {
+  Future<Either<Failure, User>> login(String username, String password) async {
     if (await networkInfo.isConnected) {
       try {
         await remoteDataSource.deleteOldSession();

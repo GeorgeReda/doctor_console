@@ -20,6 +20,15 @@ class TablesSuccess extends TablesState {
   List<Object> get props => [receipts];
 }
 
+class BookReceiptsSuccess extends TablesState {
+  final List<BookReceipt> receipts;
+
+  const BookReceiptsSuccess({required this.receipts});
+
+  @override
+  List<Object> get props => [receipts];
+}
+
 class TablesError extends TablesState {
   final String message;
 

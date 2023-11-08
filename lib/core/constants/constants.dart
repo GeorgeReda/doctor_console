@@ -21,3 +21,7 @@ const List<String> numbers = [
   '01016391820',
   '01050396226',
 ];
+
+extension ListGetExtension<T> on List<int> {
+  int tryGet(int index) => index < 0 || index >= length ? 0 : this[index];
+}

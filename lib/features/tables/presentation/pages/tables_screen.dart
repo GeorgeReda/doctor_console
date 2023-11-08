@@ -1,24 +1,25 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:doctor_console/features/tables/presentation/cubits/mark_cubit.dart';
+import 'package:doctor_console/features/tables/presentation/cubits/receipt_cubit.dart';
 import 'package:doctor_console/features/tables/presentation/cubits/tables_cubit.dart';
+import 'package:doctor_console/features/tables/presentation/widgets/fawry_receipts_table.dart';
 import 'package:doctor_console/features/tables/presentation/widgets/filter_row.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../widgets/receipts_table.dart';
-
 class TablesScreen extends StatelessWidget {
-  const TablesScreen({super.key});
+  TablesScreen({super.key});
+  final formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<MarkCubit, MarkState>(
+      body: BlocListener<ReceiptCubit, MarkState>(
         listener: (context, state) {
-          if (state is MarkLoading) {
+          if (state is ReceiptLoading) {
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -39,7 +40,7 @@ class TablesScreen extends StatelessWidget {
               webBgColor: context.primaryColor.hex,
               toastLength: Toast.LENGTH_LONG,
             );
-          } else if (state is MarkError) {
+          } else if (state is ReceiptError) {
             //remove the circular progress indicator
             context.pop();
             Fluttertoast.showToast(
@@ -69,7 +70,7 @@ class TablesScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const FiltersRow(),
+            FiltersRow(formKey: formKey),
             BlocBuilder<TablesCubit, TablesState>(
               builder: (context, state) {
                 if (state is TablesSuccess) {
@@ -87,7 +88,7 @@ class TablesScreen extends StatelessWidget {
               },
             ),
             const SizedBox(height: 20),
-            const ReceiptsTable(),
+            const FawryReceiptsTable(),
           ],
         ),
       ),

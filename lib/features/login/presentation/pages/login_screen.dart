@@ -2,6 +2,8 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:doctor_console/core/utils/responsive.dart';
 import 'package:doctor_console/features/login/presentation/cubit/login_cubit.dart';
 import 'package:doctor_console/features/login/presentation/widgets/logo.dart';
+import 'package:doctor_console/features/tables/presentation/cubits/tables_cubit.dart';
+import 'package:doctor_console/features/tables/presentation/pages/renewal_screen.dart';
 import 'package:doctor_console/features/tables/presentation/pages/tables_screen.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +37,18 @@ class LoginScreen extends StatelessWidget {
             context.pop();
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const TablesScreen(),
+                builder: (context) {
+                  // return state.user.labels.contains('admin')
+                  //   ? TablesScreen()
+                  //   : const RenewalScreen();
+                  if (state.user.labels.contains('admin')) {
+                    return TablesScreen();
+                  }
+                  {
+                    context.read<TablesCubit>().getRenewalReceipts();
+                    return const RenewalScreen();
+                  }
+                },
               ),
             );
           } else if (state is LoginError) {

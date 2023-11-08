@@ -1,7 +1,7 @@
 name: doctor_console
-description: A new Flutter project.
+description: Doctor In Physics Payment Console
 publish_to: "none"
-version: 0.1.0
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.1.0 <4.0.0"
@@ -9,8 +9,10 @@ environment:
 dependencies:
   appwrite: ^11.0.0
   awesome_extensions: ^2.0.9
+  crypto: ^3.0.3
   dartz: ^0.10.1
   equatable: ^2.0.5
+  excel: ^3.0.0
   flex_color_scheme: ^7.3.1
   flutter:
     sdk: flutter
@@ -20,6 +22,7 @@ dependencies:
   form_builder_validators: ^9.1.0
   get_it: ^7.6.4
   google_fonts: ^6.1.0
+  http: ^1.0.0
   internet_connection_checker_plus: ^2.0.0
   intl: ^0.18.1
   loading_animation_widget: ^1.2.0+4

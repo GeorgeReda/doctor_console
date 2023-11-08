@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:doctor_console/core/constants/enums.dart';
 import 'package:doctor_console/core/errors/failures.dart';
 import 'package:doctor_console/core/usecases/usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -18,13 +17,9 @@ class MarkAsRenewed extends UseCase<Unit, MarkAsRenewedParams> {
 }
 
 class MarkAsRenewedParams extends Equatable {
-  final PaymentMethod paymentMethod;
   final String id;
 
-  const MarkAsRenewedParams({required this.paymentMethod, required this.id});
+  const MarkAsRenewedParams({required this.id});
   @override
-  List<Object> get props => [
-        paymentMethod,
-        id,
-      ];
+  List<Object> get props => [id];
 }

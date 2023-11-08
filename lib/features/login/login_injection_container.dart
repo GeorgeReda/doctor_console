@@ -19,7 +19,6 @@ Future<void> loginInit() async {
   // Data sources
   sl.registerLazySingleton<LoginRemoteDataSource>(
       () => LoginRemoteDataSourceImpl(
-            client: sl(),
             account: sl(),
           ));
 }
