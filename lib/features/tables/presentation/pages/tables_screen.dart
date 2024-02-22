@@ -77,7 +77,7 @@ class TablesScreen extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'عدد الفواتير : ${state.receipts.length}',
+                      'عدد الفواتير : ${state.response.total}',
                       style: context.titleMedium,
                       textAlign: TextAlign.center,
                     ),

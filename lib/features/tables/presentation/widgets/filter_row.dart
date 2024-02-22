@@ -48,11 +48,24 @@ class _FiltersRowState extends State<FiltersRow> {
               width: 200,
               child: FormBuilderDateTimePicker(
                 name: 'day',
-                initialValue: DateTime.now(),
                 inputType: InputType.date,
                 format: DateFormat('yyyy-MM-dd'),
                 decoration: const InputDecoration(
                     labelText: 'اليوم',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(25)))),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: 200,
+              child: FormBuilderTextField(
+                name: 'query',
+                initialValue: '',
+                decoration: const InputDecoration(
+                    labelText: 'البحث',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25)))),
               ),
@@ -78,12 +91,15 @@ class _FiltersRowState extends State<FiltersRow> {
                     if (widget.formKey.currentState?.saveAndValidate() ??
                         false) {
                       context.read<TablesCubit>().getTablesData(GetTablesParams(
-                          isRenewed: widget
-                              .formKey.currentState?.fields['isRenewed']?.value,
-                          day:
-                              widget.formKey.currentState?.fields['day']?.value,
-                          year: widget
-                              .formKey.currentState?.fields['year']?.value));
+                            isRenewed: widget.formKey.currentState
+                                ?.fields['isRenewed']?.value,
+                            day: widget
+                                .formKey.currentState?.fields['day']?.value,
+                            year: widget
+                                .formKey.currentState?.fields['year']?.value,
+                            query: widget
+                                .formKey.currentState?.fields['query']?.value,
+                          ));
                     }
                   },
                   child: const Text('بحث')),

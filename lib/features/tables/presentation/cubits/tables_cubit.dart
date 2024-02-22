@@ -1,5 +1,6 @@
 import 'package:doctor_console/core/errors/failures.dart';
 import 'package:doctor_console/core/usecases/usecase.dart';
+import 'package:doctor_console/features/tables/domain/entities/fawry_response.dart';
 import 'package:doctor_console/features/tables/domain/usecases/get_book_receipts.dart';
 import 'package:doctor_console/features/tables/domain/usecases/get_renewal_receipts.dart';
 import 'package:doctor_console/features/tables/domain/usecases/get_tables.dart';
@@ -26,7 +27,7 @@ class TablesCubit extends Cubit<TablesState> {
           message: failure is AppwriteFailure
               ? failure.message
               : failure.toString())),
-      (receipts) => emit(TablesSuccess(receipts: receipts)),
+      (response) => emit(TablesSuccess(response: response)),
     );
   }
 
@@ -50,19 +51,19 @@ class TablesCubit extends Cubit<TablesState> {
           message: failure is AppwriteFailure
               ? failure.message
               : failure.toString())),
-      (receipts) => emit(TablesSuccess(receipts: receipts)),
+      (receipts) => emit(RenewalSuccess(receipts: receipts)),
     );
   }
 
   void markAsRenewed(String id) {
-    final receipts = (state as TablesSuccess).receipts;
+    final receipts = (state as RenewalSuccess).receipts;
     emit(TablesLoading());
     // remove receipt from receipts list
     receipts.removeWhere((element) => element.id == id);
     if (receipts.isEmpty) {
       getRenewalReceipts();
     } else {
-      emit(TablesSuccess(receipts: receipts));
+      emit(RenewalSuccess(receipts: receipts));
     }
   }
 }

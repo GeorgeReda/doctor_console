@@ -10,6 +10,7 @@ import 'package:doctor_console/features/tables/domain/usecases/get_tables.dart';
 import 'package:doctor_console/features/tables/domain/usecases/mark_as_renewed.dart';
 import 'package:doctor_console/features/tables/domain/usecases/refund.dart';
 
+import '../../domain/entities/fawry_response.dart';
 import '../datasources/tables_remote_data_source.dart';
 
 class TablesRepositoryImpl implements TablesRepository {
@@ -23,11 +24,11 @@ class TablesRepositoryImpl implements TablesRepository {
       required this.localDataSource});
 
   @override
-  Future<Either<Failure, List<Receipt>>> getTables(
+  Future<Either<Failure, FawryResponse>> getTables(
       GetTablesParams params) async {
     if (await networkInfo.isConnected) {
       try {
-        List<Receipt> receipts = await remoteDataSource.getTables(params);
+        FawryResponse receipts = await remoteDataSource.getTables(params);
         return Right(receipts);
       } on Exception catch (e) {
         return Left(

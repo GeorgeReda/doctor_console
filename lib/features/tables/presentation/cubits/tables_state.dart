@@ -12,9 +12,18 @@ class TablesInitial extends TablesState {}
 class TablesLoading extends TablesState {}
 
 class TablesSuccess extends TablesState {
+  final FawryResponse response;
+
+  const TablesSuccess({required this.response});
+
+  @override
+  List<Object> get props => [response];
+}
+
+class RenewalSuccess extends TablesState {
   final List<Receipt> receipts;
 
-  const TablesSuccess({required this.receipts});
+  const RenewalSuccess({required this.receipts});
 
   @override
   List<Object> get props => [receipts];

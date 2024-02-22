@@ -15,7 +15,7 @@ Future<void> init() async {
   // External
   sl.registerLazySingleton(() => InternetConnection());
   sl.registerLazySingleton(() => Client()
-    ..setEndpoint('https://cloud.appwrite.io/v1')
+    ..setEndpoint('https://appwrite.doctorinphysics.com/v1')
     ..setProject('651400d5d07d0023699b'));
   sl.registerLazySingleton(() => Functions(sl()));
   sl.registerLazySingleton(() => Account(sl()));

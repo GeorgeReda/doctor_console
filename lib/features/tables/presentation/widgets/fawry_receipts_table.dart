@@ -37,7 +37,10 @@ class _FawryReceiptsTableState extends State<FawryReceiptsTable> {
       return DataRow(cells: [
         DataCell(DataCellCopy(data: transaction.name)),
         DataCell(DataCellCopy(data: transaction.code)),
-        DataCell(Text(transaction.monthsNeeded.map((e) => e.desc).toString())),
+        DataCell(Text(transaction.monthsNeeded
+            .map((e) =>
+                transaction.year == Year.second ? e.secondDesc : e.thirdDesc)
+            .toString())),
         DataCell(DataCellCopy(data: transaction.phone)),
         DataCell(DataCellCopy(data: transaction.year.desc)),
         DataCell(DataCellCopy(data: transaction.referenceNumber.toString())),
@@ -99,7 +102,8 @@ class _FawryReceiptsTableState extends State<FawryReceiptsTable> {
                     'حالة الدفع',
                     ''
                   ].map((e) => DataColumn(label: Text(e))).toList(),
-                  rows: getRenewalRows(state.receipts.cast<FawryReceipt>())),
+                  rows: getRenewalRows(
+                      state.response.receipts.cast<FawryReceipt>())),
             ),
           );
         } else if (state is BookReceiptsSuccess) {

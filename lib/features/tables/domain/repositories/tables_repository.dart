@@ -5,11 +5,12 @@ import 'package:doctor_console/features/tables/domain/entities/receipt.dart';
 import 'package:doctor_console/features/tables/domain/usecases/get_tables.dart';
 import 'package:doctor_console/features/tables/domain/usecases/mark_as_renewed.dart';
 
+import '../entities/fawry_response.dart';
 import '../usecases/get_book_receipts.dart';
 import '../usecases/refund.dart';
 
 abstract class TablesRepository {
-  Future<Either<Failure, List<Receipt>>> getTables(GetTablesParams params);
+  Future<Either<Failure, FawryResponse>> getTables(GetTablesParams params);
   Future<Either<Failure, List<BookReceipt>>> getBookReceipts(
       GetBookReceiptsParams params);
   Future<Either<Failure, List<Receipt>>> getRenewalReceipts();

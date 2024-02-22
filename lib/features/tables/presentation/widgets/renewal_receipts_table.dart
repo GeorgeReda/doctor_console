@@ -37,7 +37,10 @@ class _RenewalReceiptsTableState extends State<RenewalReceiptsTable> {
             MarkButton(id: transaction.id, isEnabled: !transaction.isRenewed)),
         DataCell(DataCellCopy(data: transaction.name)),
         DataCell(DataCellCopy(data: transaction.code)),
-        DataCell(Text(transaction.monthsNeeded.map((e) => e.desc).toString())),
+        DataCell(Text(transaction.monthsNeeded
+            .map((e) =>
+                transaction.year == Year.second ? e.secondDesc : e.thirdDesc)
+            .toString())),
         DataCell(DataCellCopy(data: transaction.phone)),
         DataCell(DataCellCopy(data: transaction.year.desc)),
       ]);
@@ -57,7 +60,7 @@ class _RenewalReceiptsTableState extends State<RenewalReceiptsTable> {
           );
         } else if (state is TablesError) {
           return Center(child: Text(state.message));
-        } else if (state is TablesSuccess) {
+        } else if (state is RenewalSuccess) {
           if (state.receipts.isEmpty) {
             return ElevatedButton(
               onPressed: () => context.read<TablesCubit>().getRenewalReceipts(),

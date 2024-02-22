@@ -1,23 +1,46 @@
-enum Months { first, second, third, fourth }
+enum Payment {
+  renewal,
+  books,
+}
 
-extension MonthsExt on Months {
-  String get desc {
+enum Months { first, second, third, fourth, fifth, sixth, seventh }
+
+extension ThirdMonthsExt on Months {
+  String get thirdDesc {
     switch (this) {
       case Months.first:
-        return 'الشهر الأول';
+        return 'الفصل الأول';
       case Months.second:
-        return 'الشهر الثاني';
+        return 'الفصل الثاني';
       case Months.third:
-        return 'الشهر الثالث';
+        return 'الفصل الثالث';
       case Months.fourth:
-        return 'الشهر الرابع';
+        return 'الفصل الرابع و الخامس (الجديد)';
+      // case Months.fifth:
+      //   return 'الفصل السادس و السابع و الثامن (الجديد)';
       default:
         return '';
     }
   }
 }
 
-enum Year { none, second, third }
+extension SecondMonthsExt on Months {
+  String get secondDesc {
+    switch (this) {
+      case Months.first:
+        return 'الشهر الأول (الترم الثاني)';
+
+      default:
+        return '';
+    }
+  }
+}
+
+enum Year {
+  none,
+  second,
+  third,
+}
 
 extension YearExt on Year {
   String get desc {
@@ -27,12 +50,12 @@ extension YearExt on Year {
       case Year.third:
         return 'الصف الثالث الثانوي';
       default:
-        return 'غير محدد';
+        return '';
     }
   }
 }
 
-enum Books { first, second, third, fourth }
+enum Books { first, second, third }
 
 extension BooksExt on Books {
   String get desc {
@@ -42,9 +65,7 @@ extension BooksExt on Books {
       case Books.second:
         return 'مذكرة الفصلين الثاني و الثالث';
       case Books.third:
-        return 'مذكرة الفصل الرابع و الحديثة';
-      case Books.fourth:
-        return 'مذكرة المراجعة النهائية';
+        return 'مذكرة الفصلين الرابع و الحديثة';
       default:
         return '';
     }
