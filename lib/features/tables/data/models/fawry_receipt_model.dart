@@ -6,10 +6,9 @@ class FawryReciptModel extends FawryReceipt {
   const FawryReciptModel(
       {required super.id,
       required super.name,
-      required super.code,
       required super.phone,
       required super.year,
-      required super.monthsNeeded,
+      required super.months,
       required super.amount,
       required super.paidAt,
       required super.status,
@@ -21,12 +20,11 @@ class FawryReciptModel extends FawryReceipt {
     return FawryReciptModel(
       id: doc.$id,
       name: doc.data['name'],
-      code: doc.data['code'],
       phone: doc.data['phone'],
       year:
           Year.values.firstWhere((element) => element.name == doc.data['year']),
-      monthsNeeded: Months.values
-          .where((element) => doc.data['monthsNeeded'].contains(element.name))
+      months: Months.values
+          .where((element) => doc.data['months'].contains(element.name))
           .toList(),
       amount: doc.data['amount'],
       paidAt: DateTime.parse(doc.data['paidAt']),

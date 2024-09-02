@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class BookReceipt extends Equatable {
   final String name, address, phone, secondPhone, status, referenceNumber;
-  final List<int> booksNeeded;
+  final int book1, book2, book3, book4;
   final DateTime? paidAt;
   final double amount;
 
@@ -11,7 +11,10 @@ class BookReceipt extends Equatable {
       required this.address,
       required this.phone,
       required this.secondPhone,
-      required this.booksNeeded,
+      required this.book1,
+      required this.book2,
+      required this.book3,
+      required this.book4,
       required this.status,
       required this.referenceNumber,
       required this.paidAt,
@@ -23,7 +26,10 @@ class BookReceipt extends Equatable {
         address,
         phone,
         secondPhone,
-        booksNeeded,
+        book1,
+        book2,
+        book3,
+        book4,
         status,
         referenceNumber,
         paidAt,

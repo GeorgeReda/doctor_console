@@ -20,20 +20,23 @@ class TablesLocalDataSourceImpl implements TablesLocalDataSource {
     sheetObject.isRTL = true;
 
     sheetObject.appendRow([
-      'الاسم',
-      'العنوان',
-      'التليفون',
-      'التليفون الثاني',
-      for (Books book in Books.values) book.desc,
+      TextCellValue('الاسم'),
+      TextCellValue('العنوان'),
+      TextCellValue('التليفون'),
+      TextCellValue('التليفون الثاني'),
+      for (Books book in Books.values) TextCellValue(book.desc),
     ]);
 
     for (BookReceipt receipt in receipts) {
       sheetObject.appendRow([
-        receipt.name,
-        receipt.address,
-        receipt.phone,
-        receipt.secondPhone,
-        for (int i in receipt.booksNeeded) i.toString(),
+        TextCellValue(receipt.name),
+        TextCellValue(receipt.address),
+        TextCellValue(receipt.phone),
+        TextCellValue(receipt.secondPhone),
+        IntCellValue(receipt.book1),
+        IntCellValue(receipt.book2),
+        IntCellValue(receipt.book3),
+        IntCellValue(receipt.book4),
       ]);
     }
 

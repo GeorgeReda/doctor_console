@@ -5,7 +5,6 @@ import 'package:doctor_console/features/login/presentation/widgets/logo.dart';
 import 'package:doctor_console/features/tables/presentation/cubits/tables_cubit.dart';
 import 'package:doctor_console/features/tables/presentation/pages/renewal_screen.dart';
 import 'package:doctor_console/features/tables/presentation/pages/tables_screen.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';

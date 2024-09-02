@@ -3,7 +3,6 @@ import 'package:doctor_console/features/tables/presentation/cubits/receipt_cubit
 import 'package:doctor_console/features/tables/presentation/cubits/tables_cubit.dart';
 import 'package:doctor_console/features/tables/presentation/widgets/fawry_receipts_table.dart';
 import 'package:doctor_console/features/tables/presentation/widgets/filter_row.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

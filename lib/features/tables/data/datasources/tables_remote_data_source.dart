@@ -1,13 +1,9 @@
-import 'dart:convert';
-
 import 'package:appwrite/appwrite.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:crypto/crypto.dart';
 import 'package:dartz/dartz.dart';
 import 'package:doctor_console/features/tables/domain/entities/book_receipt.dart';
 import 'package:doctor_console/features/tables/domain/entities/fawry_response.dart';
 import 'package:doctor_console/features/tables/domain/usecases/get_book_receipts.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:doctor_console/core/constants/enums.dart';
 import 'package:doctor_console/features/tables/data/models/fawry_receipt_model.dart';
@@ -42,15 +38,15 @@ class TablesRemoteDataSourceImpl implements TablesRemoteDataSource {
         if (params.year != Year.none) Query.equal('year', params.year.name),
         if (params.isRenewed != null)
           Query.equal('isRenewed', params.isRenewed),
-        if (!params.query.isNumericOnly() && params.query.isNotEmpty)
+        if (!params.query.isNumericOnly && params.query.isNotEmpty)
           Query.startsWith('name', params.query),
-        if (params.query.isNumericOnly())
+        if (params.query.isNumericOnly)
           Query.startsWith(
               params.query.startsWith('01') ? 'phone' : 'code', params.query),
       ];
 
       final docs = await db.listDocuments(
-          databaseId: 'main', collectionId: 'renewal', queries: queries2);
+          databaseId: 'main', collectionId: 'receipts', queries: queries2);
 
       return FawryResponse(
           receipts: docs.documents
@@ -67,7 +63,7 @@ class TablesRemoteDataSourceImpl implements TablesRemoteDataSource {
     try {
       await db.updateDocument(
           databaseId: 'main',
-          collectionId: 'renewal',
+          collectionId: 'receipts',
           documentId: params.id,
           data: {
             'isRenewed': true,
@@ -82,34 +78,6 @@ class TablesRemoteDataSourceImpl implements TablesRemoteDataSource {
   @override
   Future<Unit> refund(RefundParams params) async {
     try {
-      const String merchantCode = '770000016638';
-
-      final response = await http.post(
-          Uri.dataFromString(
-              'https://www.atfawry.com/ECommerceWeb/Fawry/payments/refund'),
-          body: jsonEncode({
-            'merchantCode': merchantCode,
-            'referenceNumber': params.refundReceipt.referenceNumber,
-            'refundAmount': params.refundReceipt.amount,
-            'signature': sha256
-                .convert(utf8.encode(
-                    '$merchantCode${params.refundReceipt.referenceNumber}${params.refundReceipt.amount}c550be95-8aa2-4433-a882-85ffe4ca8b05'))
-                .toString(),
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          });
-
-      if (response.statusCode == 200) {
-        // update DB
-        await db.updateDocument(
-            databaseId: 'main',
-            collectionId: 'renewal',
-            documentId: params.refundReceipt.id,
-            data: {'isRefunded': true, 'status': 'REFUNDED'});
-        throw AppwriteException('Refund failed');
-      }
       return unit;
     } catch (e) {
       rethrow;
@@ -121,7 +89,7 @@ class TablesRemoteDataSourceImpl implements TablesRemoteDataSource {
     try {
       final docs = await db.listDocuments(
           databaseId: 'main',
-          collectionId: 'renewal',
+          collectionId: 'receipts',
           queries: [
             Query.equal('isRenewed', false),
             Query.isNotNull('paidAt'),
@@ -144,11 +112,14 @@ class TablesRemoteDataSourceImpl implements TablesRemoteDataSource {
   Future<List<BookReceipt>> getBookReceipts(
       GetBookReceiptsParams params) async {
     try {
-      final docs = await db
-          .listDocuments(databaseId: 'main', collectionId: 'books', queries: [
-        Query.startsWith('paidAt', params.day.toIso8601String().split('T')[0]),
-        Query.limit(1000) 
-      ]);
+      final docs = await db.listDocuments(
+          databaseId: 'main',
+          collectionId: '66af6a07000ef3c8b648',
+          queries: [
+            Query.startsWith(
+                'paidAt', params.day.toIso8601String().split('T')[0]),
+            Query.limit(1000)
+          ]);
 
       return docs.documents
           .map((doc) => BookReceiptModel.fromJson(doc.data))

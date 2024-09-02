@@ -30,7 +30,7 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
           theme: FlexThemeData.light(
-            scheme: FlexScheme.deepBlue,
+            scheme: FlexScheme.greenM3,
             useMaterial3: true,
             visualDensity: FlexColorScheme.comfortablePlatformDensity,
           ),

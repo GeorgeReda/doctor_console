@@ -15,7 +15,7 @@ class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
   @override
   Future<User> login(String email, String password) async {
     try {
-      await account.createEmailSession(
+      await account.createEmailPasswordSession(
         email: email,
         password: password,
       );

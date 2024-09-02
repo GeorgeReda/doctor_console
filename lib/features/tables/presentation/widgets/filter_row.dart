@@ -111,7 +111,7 @@ class _FiltersRowState extends State<FiltersRow> {
               width: 200,
               child: ElevatedButton.icon(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                           const Color(0xFF10793F))),
                   onPressed: () {
                     if (widget.formKey.currentState!.saveAndValidate()) {

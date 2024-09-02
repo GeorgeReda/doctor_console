@@ -1,11 +1,9 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:doctor_console/core/constants/constants.dart';
 import 'package:doctor_console/core/constants/enums.dart';
 import 'package:doctor_console/features/tables/domain/entities/book_receipt.dart';
 import 'package:doctor_console/features/tables/domain/entities/fawry_receipt.dart';
 import 'package:doctor_console/features/tables/presentation/cubits/tables_cubit.dart';
 import 'package:doctor_console/features/tables/presentation/widgets/data_cell_copy.dart';
-import 'package:doctor_console/features/tables/presentation/widgets/refund_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -36,8 +34,7 @@ class _FawryReceiptsTableState extends State<FawryReceiptsTable> {
     return receipts.map<DataRow>((transaction) {
       return DataRow(cells: [
         DataCell(DataCellCopy(data: transaction.name)),
-        DataCell(DataCellCopy(data: transaction.code)),
-        DataCell(Text(transaction.monthsNeeded
+        DataCell(Text(transaction.months
             .map((e) =>
                 transaction.year == Year.second ? e.secondDesc : e.thirdDesc)
             .toString())),
@@ -47,7 +44,6 @@ class _FawryReceiptsTableState extends State<FawryReceiptsTable> {
         DataCell(DataCellCopy(
             data: transaction.paidAt?.toIso8601String() ?? 'لسه مدفعش')),
         DataCell(DataCellCopy(data: transaction.status)),
-        DataCell(RefundButton(receipt: transaction)),
       ]);
     }).toList();
   }
@@ -59,9 +55,10 @@ class _FawryReceiptsTableState extends State<FawryReceiptsTable> {
         DataCell(DataCellCopy(data: transaction.address)),
         DataCell(DataCellCopy(data: transaction.phone)),
         DataCell(DataCellCopy(data: transaction.secondPhone)),
-        for (int i = 0; i < Books.values.length; i++)
-          DataCell(
-              DataCellCopy(data: transaction.booksNeeded.tryGet(i).toString())),
+        DataCell(DataCellCopy(data: transaction.book1.toString())),
+        DataCell(DataCellCopy(data: transaction.book2.toString())),
+        DataCell(DataCellCopy(data: transaction.book3.toString())),
+        DataCell(DataCellCopy(data: transaction.book4.toString())),
         DataCell(DataCellCopy(data: transaction.referenceNumber.toString())),
         DataCell(DataCellCopy(
             data: transaction.paidAt?.toIso8601String() ?? 'لسه مدفعش')),
@@ -93,14 +90,12 @@ class _FawryReceiptsTableState extends State<FawryReceiptsTable> {
               child: DataTable(
                   columns: [
                     'الاسم',
-                    'الكود',
                     'الشهور المطلوبة',
                     'الهاتف',
                     'السنة الدراسية',
                     'الرقم المرجعي',
                     'تاريخ الدفع',
                     'حالة الدفع',
-                    ''
                   ].map((e) => DataColumn(label: Text(e))).toList(),
                   rows: getRenewalRows(
                       state.response.receipts.cast<FawryReceipt>())),
